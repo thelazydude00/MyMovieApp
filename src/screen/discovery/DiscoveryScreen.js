@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Button, ScrollView, StyleSheet} from 'react-native';
+import {Button, RefreshControl, ScrollView, StyleSheet} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {addToWishlist, removeFromWishlist} from 'app_store/wishlistSlice';
 import CategorySection from './CategorySection';
@@ -11,10 +11,14 @@ const sectionHeightGap = 20;
 
 const DiscoveryScreen = ({navigation}) => {
   const dispatch = useDispatch();
-  const {categories} = useDiscovery();
+  const {categories, refreshing, onRefresh} = useDiscovery();
 
   return (
-    <ScrollView style={style.container}>
+    <ScrollView
+      style={style.container}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }>
       <Button
         title="add to wishlist"
         onPress={() => dispatch(addToWishlist(Math.random(100)))}
@@ -25,14 +29,14 @@ const DiscoveryScreen = ({navigation}) => {
       />
 
       {categories.map(category => (
-        <>
+        <React.Fragment key={category.title}>
           <CategorySection
             title={category.title}
             data={category.list}
             key={category.title}
           />
           <Spacer height={sectionHeightGap} />
-        </>
+        </React.Fragment>
       ))}
     </ScrollView>
   );

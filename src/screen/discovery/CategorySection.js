@@ -26,6 +26,7 @@ const CategorySection = ({title, data, limit = 5}) => {
             />
           );
         }}
+        keyExtractor={item => item.id}
         ListFooterComponent={() => (
           <View style={style.footerContainer}>
             <Spacer width={10} />
