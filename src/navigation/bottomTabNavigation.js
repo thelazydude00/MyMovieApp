@@ -18,7 +18,6 @@ export default function MyTabs() {
   return (
     <Tab.Navigator>
       {list.map(item => {
-        console.log('item', item, item.component);
         return (
           <Tab.Screen
             name={item.name}
@@ -28,6 +27,7 @@ export default function MyTabs() {
                 <Icon name={item.icon} size={size} color={color} />
               ),
             }}
+            key={item.name}
           />
         );
       })}
