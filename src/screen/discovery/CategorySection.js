@@ -7,29 +7,33 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useNavigation} from '@react-navigation/native';
 import {DETAIL} from 'navigation/route';
 
-const CategorySection = ({title, data, limit = 5}) => {
+const CategorySection = ({title, data, limit = 10}) => {
   const navigation = useNavigation();
+
+  const limitData = data.slice(0, limit);
   return (
     <View>
       <Text style={style.title}>{title}</Text>
       <Spacer height={10} />
       <FlatList
-        data={data}
+        data={limitData}
         renderItem={({item}) => {
           return (
             <CategoryItem
+              isFav={true}
               image={item.image}
               rating={item.imDbRating}
               title={item.title}
               year={item.year}
-              onPress={() => navigation.push(DETAIL)}
+              onPress={() => navigation.navigate(DETAIL, {id: item.id})}
+              onPressFav={() => null}
             />
           );
         }}
         keyExtractor={item => item.id}
         ListFooterComponent={() => {
           if (data.length < limit) {
-            return;
+            return null;
           }
 
           return (

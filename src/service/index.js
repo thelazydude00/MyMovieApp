@@ -20,9 +20,8 @@ export const fetchDiscovery = () => {
     Promise.all(concurrentReq)
       .then(result => {
         const data = [];
-
         const top250MovieData = result[0].data;
-        if (!top250MovieData.errorMessage && top250MovieData.items > 0) {
+        if (!top250MovieData.errorMessage && top250MovieData.items.length > 0) {
           data.push({
             title: 'Top 250 Movies',
             list: top250MovieData.items,
@@ -30,7 +29,7 @@ export const fetchDiscovery = () => {
         }
 
         const top250TVsData = result[1].data;
-        if (!top250TVsData.errorMessage && top250TVsData.items > 0) {
+        if (!top250TVsData.errorMessage && top250TVsData.items.length > 0) {
           data.push({
             title: 'Top 250 TVs',
             list: top250TVsData.items,
@@ -40,7 +39,7 @@ export const fetchDiscovery = () => {
         const mostPopularMovieData = result[2].data;
         if (
           !mostPopularMovieData.errorMessage &&
-          mostPopularMovieData.items > 0
+          mostPopularMovieData.items.length > 0
         ) {
           data.push({
             title: 'Most Popular Movie',
@@ -49,7 +48,10 @@ export const fetchDiscovery = () => {
         }
 
         const mostPopularTVsData = result[3].data;
-        if (!mostPopularTVsData.errorMessage && mostPopularTVsData.items > 0) {
+        if (
+          !mostPopularTVsData.errorMessage &&
+          mostPopularTVsData.items.length > 0
+        ) {
           data.push({
             title: 'Most Popular TVs',
             list: mostPopularTVsData.items,
@@ -57,7 +59,7 @@ export const fetchDiscovery = () => {
         }
 
         const inTheatersData = result[4].data;
-        if (!inTheatersData.errorMessage && inTheatersData.items > 0) {
+        if (!inTheatersData.errorMessage && inTheatersData.items.length > 0) {
           data.push({
             title: 'In Theaters',
             list: inTheatersData.items,
@@ -73,9 +75,10 @@ export const fetchDiscovery = () => {
   });
 };
 
-export const fetchTrailer = async id => {
-  let url = transformRequestUrl('/Trailer');
+export const fetchTitle = async id => {
+  const url = transformRequestUrl('/Title');
+
   const response = await apiClient.get(`${url}/${id}`);
 
-  console.log('response', response);
+  return response.data;
 };

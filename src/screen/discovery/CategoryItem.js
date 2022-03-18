@@ -5,11 +5,27 @@ import {Spacer} from 'component';
 import CategoryScaffold from './CategoryScaffold';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-const CategoryItem = ({image, rating, title, year, onPress}) => {
+const CategoryItem = ({
+  isFav,
+  image,
+  rating,
+  title,
+  year,
+  onPress,
+  onPressFav,
+}) => {
+  const icon = isFav ? 'favorite' : 'favorite-outline';
+  const iconColor = isFav ? 'red' : 'black';
   return (
     <CategoryScaffold onPress={onPress}>
       <View>
-        <Icon name="favorite" size={24} style={style.favorite} />
+        <Icon
+          name={icon}
+          size={24}
+          style={style.favorite}
+          color={iconColor}
+          onPress={onPressFav}
+        />
         <FastImage
           style={style.image}
           source={{
@@ -24,8 +40,12 @@ const CategoryItem = ({image, rating, title, year, onPress}) => {
           <View style={style.descSection}>
             <Text>{year}</Text>
             <Spacer width={10} />
-            <Icon name="star" size={12} color="orange" />
-            <Text>{rating}</Text>
+            {!!rating && (
+              <>
+                <Icon name="star" size={12} color="orange" />
+                <Text>{rating}</Text>
+              </>
+            )}
           </View>
         </View>
       </View>
