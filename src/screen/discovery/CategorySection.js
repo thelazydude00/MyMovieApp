@@ -27,20 +27,26 @@ const CategorySection = ({title, data, limit = 5}) => {
           );
         }}
         keyExtractor={item => item.id}
-        ListFooterComponent={() => (
-          <View style={style.footerContainer}>
-            <Spacer width={10} />
-            <CategoryScaffold onPress={() => navigation.push('// TODO')}>
-              <View style={style.moreContainer}>
-                <View style={style.more}>
-                  <Icon name="chevron-right" size={50} color="gray" />
+        ListFooterComponent={() => {
+          if (data.length < limit) {
+            return;
+          }
+
+          return (
+            <View style={style.footerContainer}>
+              <Spacer width={10} />
+              <CategoryScaffold onPress={() => navigation.push('// TODO')}>
+                <View style={style.moreContainer}>
+                  <View style={style.more}>
+                    <Icon name="chevron-right" size={50} color="gray" />
+                  </View>
+                  <Spacer height={10} />
+                  <Text>Show More</Text>
                 </View>
-                <Spacer height={10} />
-                <Text>Show More</Text>
-              </View>
-            </CategoryScaffold>
-          </View>
-        )}
+              </CategoryScaffold>
+            </View>
+          );
+        }}
         ItemSeparatorComponent={() => <Spacer width={10} />}
         showsHorizontalScrollIndicator={false}
         horizontal
