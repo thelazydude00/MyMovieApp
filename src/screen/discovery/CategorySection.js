@@ -4,8 +4,11 @@ import CategoryItem from './CategoryItem';
 import CategoryScaffold from './CategoryScaffold';
 import {Spacer} from 'component';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {useNavigation} from '@react-navigation/native';
+import {DETAIL} from 'navigation/route';
 
 const CategorySection = ({title, data, limit = 5}) => {
+  const navigation = useNavigation();
   return (
     <View>
       <Text style={style.title}>{title}</Text>
@@ -13,12 +16,20 @@ const CategorySection = ({title, data, limit = 5}) => {
       <FlatList
         data={data}
         renderItem={({item}) => {
-          return <CategoryItem image={item.image} title={item.title} />;
+          return (
+            <CategoryItem
+              image={item.image}
+              rating={item.imDbRating}
+              title={item.title}
+              year={item.year}
+              onPress={() => navigation.push(DETAIL)}
+            />
+          );
         }}
         ListFooterComponent={() => (
           <View style={style.footerContainer}>
             <Spacer width={10} />
-            <CategoryScaffold>
+            <CategoryScaffold onPress={() => navigation.push('// TODO')}>
               <View style={style.moreContainer}>
                 <View style={style.more}>
                   <Icon name="chevron-right" size={50} color="gray" />

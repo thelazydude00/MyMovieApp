@@ -1,54 +1,20 @@
 import * as React from 'react';
-import {Button, Text, View} from 'react-native';
-import {DETAIL} from 'navigation/route';
-import {useDispatch, useSelector} from 'react-redux';
+import {Button, ScrollView, StyleSheet} from 'react-native';
+import {useDispatch} from 'react-redux';
 import {addToWishlist, removeFromWishlist} from 'app_store/wishlistSlice';
-import {fetchDiscovery} from 'service';
 import CategorySection from './CategorySection';
+import {Spacer} from 'component';
+import {DEFAULT_SCREEN_PADDING_HORIZONTAL} from 'ui/dimen';
+import useDiscovery from './useDiscovery';
+
+const sectionHeightGap = 20;
 
 const DiscoveryScreen = ({navigation}) => {
   const dispatch = useDispatch();
-  const wishlist = useSelector(state => state.wishlist.value);
-
-  console.log('wishlist', wishlist);
-
-  const data = {
-    title: 'Top 250 Movies',
-    list: [
-      {
-        id: '1',
-        title: 'test A',
-        image:
-          'https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_UX128_CR0,3,128,176_AL_.jpg',
-      },
-      {
-        id: '2',
-        title: 'test B asjhd asdkjhas asjdhas hjqw ashdjgasd asdhjk',
-        image:
-          'https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_UX128_CR0,3,128,176_AL_.jpg',
-      },
-      {
-        id: '3',
-        title: 'test C',
-        image:
-          'https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_UX128_CR0,3,128,176_AL_.jpg',
-      },
-      {
-        id: '4',
-        title: 'test D',
-        image:
-          'https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_UX128_CR0,3,128,176_AL_.jpg',
-      },
-    ],
-  };
+  const {categories} = useDiscovery();
 
   return (
-    <View>
-      <Text>Discovery Screen</Text>
-      <Button
-        title="navigate to detail"
-        onPress={() => navigation.push(DETAIL)}
-      />
+    <ScrollView style={style.container}>
       <Button
         title="add to wishlist"
         onPress={() => dispatch(addToWishlist(Math.random(100)))}
@@ -58,15 +24,24 @@ const DiscoveryScreen = ({navigation}) => {
         onPress={() => dispatch(removeFromWishlist())}
       />
 
-      <Button
-        title="fetch discovery"
-        onPress={() => {
-          fetchDiscovery('tt1375666');
-        }}
-      />
-      <CategorySection title={data.title} data={data.list} />
-    </View>
+      {categories.map(category => (
+        <>
+          <CategorySection
+            title={category.title}
+            data={category.list}
+            key={category.title}
+          />
+          <Spacer height={sectionHeightGap} />
+        </>
+      ))}
+    </ScrollView>
   );
 };
+
+const style = StyleSheet.create({
+  container: {
+    paddingHorizontal: DEFAULT_SCREEN_PADDING_HORIZONTAL,
+  },
+});
 
 export default DiscoveryScreen;
