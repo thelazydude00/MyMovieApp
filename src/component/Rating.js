@@ -3,12 +3,12 @@ import {StyleSheet, Text, View} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Spacer from './Spacer';
 
-const Rating = ({text}) => {
+const Rating = ({text, size = 12, fontSize = 12}) => {
   return (
     <View style={style.container}>
-      <Icon name="star" size={12} color="orange" />
+      <Icon name="star" size={size} color="orange" />
       <Spacer width={5} />
-      <Text>{text}</Text>
+      <Text style={{fontSize: fontSize}}>{text}</Text>
     </View>
   );
 };
