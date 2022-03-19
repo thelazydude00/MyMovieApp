@@ -1,12 +1,12 @@
 import {createSlice, createSelector} from '@reduxjs/toolkit';
 
 const initialState = {
-  value: [],
+  favs: [],
   likes: [],
 };
 
-export const wishlistSlice = createSlice({
-  name: 'wishlist',
+export const preferenceSlice = createSlice({
+  name: 'preference',
   initialState,
   reducers: {
     toggleLike: (state, action) => {
@@ -26,7 +26,7 @@ export const wishlistSlice = createSlice({
         state.likes.push(obj);
       }
     },
-    toggleWishlist: (state, action) => {
+    toggleFavorite: (state, action) => {
       let {id, image, title, year, imDbRating} = action.payload;
       let obj = {
         id,
@@ -36,24 +36,24 @@ export const wishlistSlice = createSlice({
         imDbRating,
       };
 
-      const index = state.value.findIndex(x => x.id === obj.id);
+      const index = state.favs.findIndex(x => x.id === obj.id);
 
       if (index > -1) {
-        state.value.splice(index, 1);
+        state.favs.splice(index, 1);
       } else {
-        state.value.push(obj);
+        state.favs.push(obj);
       }
     },
   },
 });
 
-export const selectWishlistByIdSelector = createSelector(
-  [state => state.wishlist.value, (state, id) => id],
-  (wishlist, id) => wishlist.find(item => item.id === id),
+export const selectFavByIdSelector = createSelector(
+  [state => state.preference.favs, (state, id) => id],
+  (favs, id) => favs.find(item => item.id === id),
 );
 
 export const selectLikeByIdSelector = createSelector(
-  [state => state.wishlist.likes, (state, id) => id],
+  [state => state.preference.likes, (state, id) => id],
   (likes, id) => {
     const item = likes.find(x => x.id === id);
 
@@ -61,7 +61,6 @@ export const selectLikeByIdSelector = createSelector(
   },
 );
 
-export const {addToWishlist, removeFromWishlist, toggleLike, toggleWishlist} =
-  wishlistSlice.actions;
+export const {toggleLike, toggleFavorite} = preferenceSlice.actions;
 
-export default wishlistSlice.reducer;
+export default preferenceSlice.reducer;

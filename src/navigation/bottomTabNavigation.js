@@ -1,16 +1,16 @@
 import * as React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import DiscoveryScreen from 'screen/discovery/DiscoveryScreen';
-import WishlistScreen from 'screen/WishlistScreen';
+import FavScreen from 'screen/FavScreen';
 import ProfileScreen from 'screen/ProfileScreen';
-import {DISCOVERY, WISHLIST, PROFILE} from './route';
+import {DISCOVERY, FAV, PROFILE} from './route';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const Tab = createBottomTabNavigator();
 
 const list = [
   {name: DISCOVERY, component: DiscoveryScreen, icon: 'home'},
-  {name: WISHLIST, component: WishlistScreen, icon: 'favorite'},
+  {name: FAV, component: FavScreen, icon: 'favorite'},
   {name: PROFILE, component: ProfileScreen, icon: 'person'},
 ];
 
