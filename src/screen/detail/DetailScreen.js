@@ -15,10 +15,13 @@ import {DEFAULT_SCREEN_PADDING_HORIZONTAL} from 'ui/dimen';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useNavigation} from '@react-navigation/native';
 import {DETAIL} from 'navigation/route';
+import ThumbUp from './ThumbUp';
+import ThumbDown from './ThumbDown';
 
 const DetailScreen = () => {
   const navigation = useNavigation();
-  const {data, loading, onShare} = useDetail();
+  const {data, loading, like, isFav, onShare, onToggleLike, onToggleWishlist} =
+    useDetail();
 
   if (loading || !data) {
     return (
@@ -46,11 +49,19 @@ const DetailScreen = () => {
         <Spacer height={10} />
 
         <View style={style.actionContainer}>
-          <Icon name="thumb-up" size={24} onPress={null} />
+          <ThumbUp
+            value={like === true}
+            size={24}
+            onPress={() => onToggleLike(true)}
+          />
 
-          <Icon name="thumb-down" size={24} onPress={null} />
+          <ThumbDown
+            value={like === false}
+            size={24}
+            onPress={() => onToggleLike(false)}
+          />
 
-          <Favorite isFav={false} size={24} onPress={null} />
+          <Favorite isFav={isFav} size={24} onPress={onToggleWishlist} />
 
           <Icon name="share" size={24} onPress={onShare} />
         </View>
