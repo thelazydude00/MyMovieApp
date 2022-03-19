@@ -20,13 +20,12 @@ const CategorySection = ({title, data, limit = 10}) => {
         renderItem={({item}) => {
           return (
             <CategoryItem
-              isFav={true}
+              id={item.id}
               image={item.image}
-              rating={item.imDbRating}
+              imDbRating={item.imDbRating}
               title={item.title}
               year={item.year}
               onPress={() => navigation.navigate(DETAIL, {id: item.id})}
-              onPressFav={() => null}
             />
           );
         }}

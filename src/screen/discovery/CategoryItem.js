@@ -1,30 +1,29 @@
 import * as React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import FastImage from 'react-native-fast-image';
-import {Spacer} from 'component';
+import {Favorite, Spacer} from 'component';
 import CategoryScaffold from './CategoryScaffold';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import useFav from 'shared/useFav';
 
-const CategoryItem = ({
-  isFav,
-  image,
-  rating,
-  title,
-  year,
-  onPress,
-  onPressFav,
-}) => {
-  const icon = isFav ? 'favorite' : 'favorite-outline';
-  const iconColor = isFav ? 'red' : 'black';
+const CategoryItem = ({id, image, imDbRating, title, year, onPress}) => {
+  const {isFav, toggleFav} = useFav(id);
+
   return (
     <CategoryScaffold onPress={onPress}>
       <View>
-        <Icon
-          name={icon}
-          size={24}
+        <Favorite
+          isFav={isFav}
           style={style.favorite}
-          color={iconColor}
-          onPress={onPressFav}
+          onPress={() => {
+            toggleFav({
+              id,
+              image,
+              imDbRating,
+              title,
+              year,
+            });
+          }}
         />
         <FastImage
           style={style.image}
@@ -40,10 +39,10 @@ const CategoryItem = ({
           <View style={style.descSection}>
             <Text>{year}</Text>
             <Spacer width={10} />
-            {!!rating && (
+            {!!imDbRating && (
               <>
                 <Icon name="star" size={12} color="orange" />
-                <Text>{rating}</Text>
+                <Text>{imDbRating}</Text>
               </>
             )}
           </View>

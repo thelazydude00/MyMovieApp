@@ -20,7 +20,7 @@ import ThumbDown from './ThumbDown';
 
 const DetailScreen = () => {
   const navigation = useNavigation();
-  const {data, loading, like, isFav, onShare, onToggleLike, onToggleWishlist} =
+  const {data, loading, like, isFav, onShare, onToggleLike, onToggleFav} =
     useDetail();
 
   if (loading || !data) {
@@ -61,7 +61,7 @@ const DetailScreen = () => {
             onPress={() => onToggleLike(false)}
           />
 
-          <Favorite isFav={isFav} size={24} onPress={onToggleWishlist} />
+          <Favorite isFav={isFav} size={24} onPress={onToggleFav} />
 
           <Icon name="share" size={24} onPress={onShare} />
         </View>

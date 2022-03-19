@@ -3,18 +3,19 @@ import * as React from 'react';
 import Share from 'react-native-share';
 import {fetchTitle} from 'service';
 import {SCHEMA} from 'navigation/deeplink';
-import {toggleLike, toggleWishlist} from 'app_store/wishlistSlice';
+import {selectLikeByIdSelector, toggleLike} from 'app_store/wishlistSlice';
 import {useDispatch, useSelector} from 'react-redux';
+import useFav from 'shared/useFav';
 
 const useDetail = () => {
   const dispatch = useDispatch();
   const route = useRoute();
   const {id} = route.params;
+  const {isFav, toggleFav} = useFav(id);
   const [loading, setLoading] = React.useState(false);
   const [data, setData] = React.useState();
 
-  const likes = useSelector(state => state.wishlist.likes);
-  const wishlist = useSelector(state => state.wishlist.value);
+  const like = useSelector(state => selectLikeByIdSelector(state, id));
 
   const onShare = React.useCallback(() => {
     Share.open({
@@ -35,19 +36,9 @@ const useDetail = () => {
     [dispatch, id],
   );
 
-  const onToggleWishlist = React.useCallback(() => {
-    dispatch(toggleWishlist(data));
-  }, [dispatch, data]);
-
-  const like = React.useMemo(() => {
-    const item = likes.find(x => x.id === id);
-    return item && item.like;
-  }, [likes, id]);
-
-  const isFav = React.useMemo(() => {
-    const item = wishlist.find(x => x.id === id);
-    return !!item;
-  }, [wishlist, id]);
+  const onToggleFav = React.useCallback(() => {
+    toggleFav(data);
+  }, [toggleFav, data]);
 
   React.useEffect(() => {
     setLoading(true);
@@ -70,7 +61,7 @@ const useDetail = () => {
     isFav,
     onShare,
     onToggleLike,
-    onToggleWishlist,
+    onToggleFav,
   };
 };
 
