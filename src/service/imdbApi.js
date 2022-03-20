@@ -82,3 +82,11 @@ export const fetchTitle = async id => {
 
   return response.data;
 };
+
+export const searchMovie = async keyword => {
+  const url = transformRequestUrl('/SearchMovie');
+
+  const response = await apiClient.get(`${url}/${keyword}`);
+
+  return response.data;
+};
