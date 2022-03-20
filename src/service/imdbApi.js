@@ -90,3 +90,9 @@ export const searchMovie = async keyword => {
 
   return response.data;
 };
+
+export default {
+  fetchDiscovery,
+  fetchTitle,
+  searchMovie,
+};
