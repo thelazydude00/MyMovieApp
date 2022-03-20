@@ -1,7 +1,7 @@
 import {useRoute} from '@react-navigation/native';
 import * as React from 'react';
 import Share from 'react-native-share';
-import {fetchTitle} from 'service';
+import {fetchTitle} from 'service/imdbApi';
 import {SCHEMA} from 'navigation/deeplink';
 import {selectLikeByIdSelector, toggleLike} from 'app_store/preferenceSlice';
 import {useDispatch, useSelector} from 'react-redux';

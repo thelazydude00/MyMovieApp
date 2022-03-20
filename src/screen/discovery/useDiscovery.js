@@ -1,28 +1,26 @@
 import * as React from 'react';
-import {fetchDiscovery} from 'service';
+import {useDispatch, useSelector} from 'react-redux';
+import {fetchDiscovery} from 'app_store/discoverySlice';
 
 const useDiscovery = () => {
-  const [categories, setCategories] = React.useState([]);
+  const dispatch = useDispatch();
+  const categories = useSelector(state => state.discovery.categories);
   const [loading, setLoading] = React.useState(false);
   const [refreshing, setRefreshing] = React.useState(false);
 
   React.useEffect(() => {
     setLoading(true);
-    fetchDiscovery()
-      .then(d => {
-        setCategories(d);
-      })
-      .finally(() => setLoading(false));
-  }, []);
+    dispatch(fetchDiscovery()).finally(() => {
+      setLoading(false);
+    });
+  }, [dispatch]);
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
-    fetchDiscovery()
-      .then(d => {
-        setCategories(d);
-      })
-      .finally(() => setRefreshing(false));
-  }, []);
+    dispatch(fetchDiscovery()).finally(() => {
+      setRefreshing(false);
+    });
+  }, [dispatch]);
 
   return {
     categories,

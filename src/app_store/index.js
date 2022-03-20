@@ -2,6 +2,7 @@ import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import {persistReducer} from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import preferenceReducer from './preferenceSlice';
+import discoveryReducer from './discoverySlice';
 import {FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER} from 'redux-persist';
 
 const persistConfig = {
@@ -13,6 +14,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   preference: preferenceReducer,
+  discovery: discoveryReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
