@@ -26,6 +26,7 @@ export default function MyTabs() {
         tabBarLabelStyle: {
           fontSize: 16,
         },
+        headerShown: false,
       }}>
       {list.map(item => {
         return (
