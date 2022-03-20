@@ -30,6 +30,7 @@ const SearchScreen = () => {
       try {
         setLoading(true);
         const response = await searchMovie(input);
+        // response.results may be null due to server busy
         setSearchResult(response.results);
       } catch (ex) {
         console.log(ex);
@@ -74,7 +75,7 @@ const SearchScreen = () => {
 
       <Spacer height={20} />
 
-      {loading && <ActivityIndicator />}
+      {loading && <ActivityIndicator size={32} />}
 
       {searchInput ? <SearchFlatList data={searchResult} /> : <SearchHistory />}
     </View>

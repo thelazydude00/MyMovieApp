@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {fetchDiscovery} from 'app_store/discoverySlice';
+import {fetchDiscovery} from 'stores/discoverySlice';
 
 const useDiscovery = () => {
   const dispatch = useDispatch();

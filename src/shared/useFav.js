@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {toggleFavorite, selectFavByIdSelector} from 'app_store/preferenceSlice';
+import {toggleFavorite, selectFavByIdSelector} from 'stores/preferenceSlice';
 
 const useFav = id => {
   const dispatch = useDispatch();

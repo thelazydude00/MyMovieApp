@@ -10,13 +10,14 @@ import React from 'react';
 import type {Node} from 'react';
 import {Provider} from 'react-redux';
 import AppNavigation from './navigation';
-import {store} from './app_store';
+import {store} from './stores';
 import {DETAIL} from 'navigation/route';
 import {SCHEMA} from 'navigation/deeplink';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {PersistGate} from 'redux-persist/integration/react';
 import {persistStore} from 'redux-persist';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 const persistor = persistStore(store);
 
@@ -35,9 +36,11 @@ const App: () => Node = () => {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <NavigationContainer linking={linking}>
-          <AppNavigation />
-        </NavigationContainer>
+        <SafeAreaProvider>
+          <NavigationContainer linking={linking}>
+            <AppNavigation />
+          </NavigationContainer>
+        </SafeAreaProvider>
       </PersistGate>
     </Provider>
   );

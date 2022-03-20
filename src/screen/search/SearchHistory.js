@@ -2,7 +2,7 @@ import * as React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Spacer} from 'component';
 import {useDispatch, useSelector} from 'react-redux';
-import {clearHistory} from 'app_store/searchSlice';
+import {clearHistory} from 'stores/searchSlice';
 import SearchFlatList from './SearchFlatList';
 
 const SearchHistory = () => {

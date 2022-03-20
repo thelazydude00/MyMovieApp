@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from 'react-redux';
-import {toggleFavorite} from 'app_store/preferenceSlice';
+import {toggleFavorite} from 'stores/preferenceSlice';
 
 const useFavVm = () => {
   const dispatch = useDispatch();

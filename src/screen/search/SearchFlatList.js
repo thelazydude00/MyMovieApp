@@ -5,7 +5,7 @@ import FastImage from 'react-native-fast-image';
 import {useNavigation} from '@react-navigation/native';
 import {DETAIL} from 'navigation/route';
 import {useDispatch} from 'react-redux';
-import {addHistory} from 'app_store/searchSlice';
+import {addHistory} from 'stores/searchSlice';
 
 const SearchFlatList = ({data}) => {
   const dispatch = useDispatch();
