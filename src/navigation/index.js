@@ -3,7 +3,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {CATEGORY, HOME, DETAIL} from './route';
 import HomeTab from './bottomTabNavigation';
 import DetailScreen from 'screen/detail/DetailScreen';
-import CategoryScreen from 'screen/CategoryScreen';
+import CategoryScreen from 'screen/category/CategoryScreen';
 
 const Homestack = createNativeStackNavigator();
 
