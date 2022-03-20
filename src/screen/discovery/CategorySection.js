@@ -5,7 +5,7 @@ import CategoryScaffold from './CategoryScaffold';
 import {Spacer} from 'component';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useNavigation} from '@react-navigation/native';
-import {DETAIL} from 'navigation/route';
+import {DETAIL, CATEGORY} from 'navigation/route';
 
 const CategorySection = ({title, data, limit = 10}) => {
   const navigation = useNavigation();
@@ -38,7 +38,8 @@ const CategorySection = ({title, data, limit = 10}) => {
           return (
             <View style={style.footerContainer}>
               <Spacer width={10} />
-              <CategoryScaffold onPress={() => navigation.push('// TODO')}>
+              <CategoryScaffold
+                onPress={() => navigation.push(CATEGORY, {title, data})}>
                 <View style={style.moreContainer}>
                   <View style={style.more}>
                     <Icon name="chevron-right" size={50} color="gray" />

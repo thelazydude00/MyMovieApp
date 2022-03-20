@@ -3,3 +3,4 @@ export const DISCOVERY = 'DISCOVERY';
 export const DETAIL = 'DETAIL';
 export const FAV = 'FAV';
 export const PROFILE = 'PROFILE';
+export const CATEGORY = 'CATEGORY';

@@ -1,8 +1,9 @@
 import * as React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {HOME, DETAIL} from './route';
+import {CATEGORY, HOME, DETAIL} from './route';
 import HomeTab from './bottomTabNavigation';
 import DetailScreen from 'screen/detail/DetailScreen';
+import CategoryScreen from 'screen/CategoryScreen';
 
 const Homestack = createNativeStackNavigator();
 
@@ -17,6 +18,7 @@ const AppNavigation = () => {
         }}
       />
       <Homestack.Screen name={DETAIL} component={DetailScreen} />
+      <Homestack.Screen name={CATEGORY} component={CategoryScreen} />
     </Homestack.Navigator>
   );
 };

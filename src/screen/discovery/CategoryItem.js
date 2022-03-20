@@ -11,41 +11,41 @@ const CategoryItem = ({id, image, imDbRating, title, year, onPress}) => {
 
   return (
     <CategoryScaffold onPress={onPress}>
-      <View>
-        <Favorite
-          isFav={isFav}
-          style={style.favorite}
-          onPress={() => {
-            toggleFav({
-              id,
-              image,
-              imDbRating,
-              title,
-              year,
-            });
-          }}
-        />
-        <FastImage
-          style={style.image}
-          source={{
-            uri: image,
-          }}
-        />
-        <Spacer height={5} />
-        <View style={style.titleSection}>
-          <Text style={style.title} numberOfLines={2}>
-            {title}
-          </Text>
-          <View style={style.descSection}>
-            <Text>{year}</Text>
-            <Spacer width={10} />
-            {!!imDbRating && (
-              <>
-                <Icon name="star" size={12} color="orange" />
-                <Text>{imDbRating}</Text>
-              </>
-            )}
-          </View>
+      <View style={style.yearBox}>
+        <Text style={style.year}>{year}</Text>
+      </View>
+
+      <FastImage
+        style={style.image}
+        source={{
+          uri: image,
+        }}
+      />
+      <Spacer height={5} />
+      <View style={style.infoSection}>
+        <Text style={style.title} numberOfLines={2}>
+          {title}
+        </Text>
+        <View style={style.descSection}>
+          {!!imDbRating && (
+            <>
+              <Icon name="star" size={12} color="orange" />
+              <Text>{imDbRating}</Text>
+            </>
+          )}
+          <Spacer weight={1} />
+          <Favorite
+            isFav={isFav}
+            onPress={() => {
+              toggleFav({
+                id,
+                image,
+                imDbRating,
+                title,
+                year,
+              });
+            }}
+          />
         </View>
       </View>
     </CategoryScaffold>
@@ -62,17 +62,30 @@ const style = StyleSheet.create({
     width: 150,
   },
   favorite: {
+    alignSelf: 'flex-end',
+  },
+  year: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  yearBox: {
+    backgroundColor: 'darkorange',
     position: 'absolute',
     zIndex: 1,
-    right: 5,
-    top: 5,
-  },
-  titleSection: {
+    right: -2,
     paddingHorizontal: 5,
+    paddingVertical: 2,
+    borderBottomStartRadius: 10,
+  },
+  infoSection: {
+    paddingHorizontal: 5,
+    justifyContent: 'space-between',
+    flex: 1,
   },
   descSection: {
     flexDirection: 'row',
     alignItems: 'center',
+    paddingBottom: 5,
   },
 });
 
